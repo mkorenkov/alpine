@@ -4,5 +4,4 @@ RUN apk add --update bash \
                      curl \
                      git \
                      sqlite-dev \
-                     sqlite-libs \
-                     mercurial
+                     sqlite-libs
