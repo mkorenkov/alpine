@@ -1,6 +1,8 @@
-FROM jeanblanchard/alpine-glibc 
+FROM mkorenkov/alpine
 
-RUN apk add --update curl \
+RUN apk add --update bash \
+                     curl \
                      git \
                      sqlite-dev \
-                     sqlite-libs
+                     sqlite-libs \
+                     mercurial
