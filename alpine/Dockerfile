@@ -1,7 +1,7 @@
 #libc part is heavily based on jeanblanchard/alpine-glibc 
 FROM alpine
 
-RUN apk add --update curl gnupg && \
+RUN apk add --update curl gnupg tzdata && \
     export GLIBC_VERSION="2.23-r1" && \
     curl -o glibc.apk -L "https://github.com/andyshinn/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" && \
     apk add --allow-untrusted glibc.apk && \
