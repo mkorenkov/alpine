@@ -1,13 +1,13 @@
-#libc part is heavily based on jeanblanchard/alpine-glibc 
-FROM alpine
+#libc part is heavily based on jeanblanchard/alpine-glibc
+FROM alpine:3.7
 
 RUN apk add --update curl gnupg tzdata && \
-    export GLIBC_VERSION="2.23-r1" && \
-    curl -o glibc.apk -L "https://github.com/andyshinn/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" && \
-    apk add --allow-untrusted glibc.apk && \
-    curl -o glibc-bin.apk -L "https://github.com/andyshinn/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" && \
-    apk add --allow-untrusted glibc-bin.apk && \
-    /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc/usr/lib && \
+    export GLIBC_VERSION="2.26-r0" && \
+    curl -Lo /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub && \
+    curl -Lo glibc.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" && \
+    curl -Lo glibc-bin.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" && \
+    apk add glibc-bin.apk glibc.apk && \
+    /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
     export GOSU_VERSION="1.7" && \
     curl -L -o /tmp/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64" && \
